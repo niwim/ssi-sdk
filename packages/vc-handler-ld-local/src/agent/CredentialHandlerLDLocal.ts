@@ -12,28 +12,23 @@ import {
 } from '@veramo/utils'
 import Debug from 'debug'
 
-import { IBindingOverrides, schema } from '../index'
+import { ContextDoc, IBindingOverrides, schema, SphereonLdSignature } from '../index'
 import { LdContextLoader } from '../ld-context-loader'
 import { LdCredentialModule } from '../ld-credential-module'
 import { LdSuiteLoader } from '../ld-suite-loader'
-import { SphereonLdSignature } from '../ld-suites'
 import { ICredentialHandlerLDLocal, IRequiredContext } from '../types/ICredentialHandlerLDLocal'
 import {
-  ContextDoc,
   ICreateVerifiableCredentialLDArgs,
   ICreateVerifiablePresentationLDArgs,
   IVerifyCredentialLDArgs,
   IVerifyPresentationLDArgs,
-} from '../types/types'
+} from '../types/ICredentialHandlerLDLocal'
 
 const debug = Debug('sphereon:ssi-sdk:ld-credential-module-local')
 
-/**
- * {@inheritDoc IVcLocalIssuerJsonLd}
- */
 export class CredentialHandlerLDLocal implements IAgentPlugin {
   private ldCredentialModule: LdCredentialModule
-  readonly schema = schema.IVcLocalIssuerJsonLd
+  readonly schema = schema.ICredentialHandlerLDLocal
   readonly methods: ICredentialHandlerLDLocal = {
     // test: this.createVerifiableCredentialLDLocal.bind(this),
     // We bind to existing methods as we can act as a drop in replacement. todo: Add config support for this mode
@@ -67,7 +62,6 @@ export class CredentialHandlerLDLocal implements IAgentPlugin {
     })
   }
 
-  /** {@inheritDoc ICredentialIssuerLDLocal.createVerifiableCredentialLDLocal} */
   private async createVerifiableCredentialLDLocal(
     args: ICreateVerifiableCredentialLDArgs,
     context: IRequiredContext
@@ -118,7 +112,6 @@ export class CredentialHandlerLDLocal implements IAgentPlugin {
     }
   }
 
-  /** {@inheritdoc ICredentialIssuerLD.createVerifiablePresentationLD} */
   private async createVerifiablePresentationLDLocal(
     args: ICreateVerifiablePresentationLDArgs,
     context: IRequiredContext
@@ -180,13 +173,11 @@ export class CredentialHandlerLDLocal implements IAgentPlugin {
     }
   }
 
-  /** {@inheritdoc ICredentialHandlerLDLocal.verifyCredentialLDLocal} */
   public async verifyCredentialLDLocal(args: IVerifyCredentialLDArgs, context: IRequiredContext): Promise<boolean> {
     const credential = args.credential
     return this.ldCredentialModule.verifyCredential(credential, context, args.fetchRemoteContexts, args.purpose, args.checkStatus)
   }
 
-  /** {@inheritdoc ICredentialHandlerLDLocal.verifyPresentationLDLocal} */
   public async verifyPresentationLDLocal(args: IVerifyPresentationLDArgs, context: IRequiredContext): Promise<boolean> {
     const presentation = args.presentation
     return this.ldCredentialModule.verifyPresentation(

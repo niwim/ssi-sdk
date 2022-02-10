@@ -7,7 +7,7 @@ import { DIDResolverPlugin } from '@veramo/did-resolver'
 import { KeyManager, MemoryKeyStore, MemoryPrivateKeyStore } from '@veramo/key-manager'
 import { KeyManagementSystem } from '@veramo/kms-local'
 import { Resolver } from 'did-resolver'
-import nock from 'nock'
+import * as nock from 'nock'
 
 import { LtoDidProvider } from '../../../lto-did-provider/src/lto-did-provider'
 import { IDidConnectionMode } from '../../../lto-did-provider/src/types/lto-provider-types'
@@ -16,7 +16,7 @@ import { LdDefaultContexts } from '../ld-default-contexts'
 import { SphereonEd25519Signature2018 } from '../suites/Ed25519Signature2018'
 import { SphereonEd25519Signature2020 } from '../suites/Ed25519Signature2020'
 import { ICredentialHandlerLDLocal, MethodNames } from '../types/ICredentialHandlerLDLocal'
-import { ContextDoc, ControllerProofPurpose } from '../types/types'
+import { ContextDoc, ControllerProofPurpose } from '../types/ICredentialHandlerLDLocal'
 
 import { bedrijfsInformatieV1, exampleV1, factomDIDResolutionResult_2018, ltoDIDResolutionResult, ltoDIDSubjectResolutionResult_2018 } from './mocks'
 

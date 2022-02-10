@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-import { ContextDoc } from './types/types'
+import { ContextDoc } from './types/ICredentialHandlerLDLocal'
 
 async function _read(_path: string): Promise<ContextDoc> {
   const contextDefinition = await fs.promises.readFile(path.join(__dirname, '../contexts', _path), {

@@ -23,7 +23,7 @@ import { IMnemonicSeedManager } from '../types/IMnemonicSeedManager'
 import { MnemonicInfo } from './entity/MnemonicInfo'
 
 export class MnemonicSeedManager implements IAgentPlugin {
-  readonly schema = schema.IMnemonicInfoGenerator
+  readonly schema = schema.IMnemonicSeedManager
   readonly methods: IMnemonicSeedManager = {
     generateMnemonic: this.generateMnemonic.bind(this),
     generateSeed: this.generateSeed.bind(this),
