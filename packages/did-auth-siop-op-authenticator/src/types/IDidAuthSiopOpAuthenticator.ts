@@ -2,6 +2,7 @@ import { DIDDocumentSection, IAgentContext, IIdentifier, IPluginMethodMap, IReso
 import { IVerifiableCredential, IVerifiablePresentation } from '@sphereon/pex'
 import { OpSession } from '../session/OpSession'
 import { SIOP } from '@sphereon/did-auth-siop'
+import {ClaimOpts} from "@sphereon/did-auth-siop/dist/main/types/SIOP.types";
 
 export interface IDidAuthSiopOpAuthenticator extends IPluginMethodMap {
   getSessionForSiop(args: IGetSiopSessionArgs, context: IRequiredContext): Promise<OpSession>
@@ -102,6 +103,7 @@ export interface IOpsAuthenticateWithSiopArgs {
   redirectUrl: string
   customApprovals: Record<string, (verifiedAuthenticationRequest: SIOP.VerifiedAuthenticationRequestWithJWT) => Promise<void>>
   customApproval?: ((verifiedAuthenticationRequest: SIOP.VerifiedAuthenticationRequestWithJWT) => Promise<void>) | string
+  claims?: ClaimOpts
 }
 
 export interface IOpsGetSiopAuthenticationRequestFromRpArgs {

@@ -1,6 +1,13 @@
 import { DIDDocumentSection, IIdentifier, IKey, TKeyType } from '@veramo/core'
 import { _ExtendedIKey, mapIdentifierKeysToDoc } from '@veramo/utils'
 import { OP, PresentationExchange, SIOP } from '@sphereon/did-auth-siop'
+import {
+  ResponseContext,
+  ResponseMode,
+  ResponseType,
+  VerificationMode
+} from '@sphereon/did-auth-siop/dist/main/types/SIOP.types'
+
 import { SubmissionRequirementMatch, IVerifiableCredential } from '@sphereon/pex'
 import { parseDid } from '@sphereon/ssi-sdk-core'
 import { SuppliedSigner } from '@sphereon/ssi-sdk-core'
@@ -50,6 +57,43 @@ export class OpSession {
         this.verifySiopAuthenticationRequestURI({ requestURI: authenticationRequest })
       )
       .then((verifiedAuthenticationRequest: SIOP.VerifiedAuthenticationRequestWithJWT) => {
+        if (args.claims) {
+          this.getSiopAuthenticationRequestDetails({
+            verifiedAuthenticationRequest: {
+              didResolutionResult: {
+                '@context': 'https://w3id.org/did-resolution/v1',
+                didResolutionMetadata: {},
+                didDocument: null,
+                didDocumentMetadata: {}
+              },
+              issuer:"",
+              signer:{
+                id:"",
+                type:"",
+                controller:""
+              },
+              jwt:"",
+              payload: {
+                scope: "SCOPE_!",
+                response_type: ResponseType.ID_TOKEN,
+                client_id: "CLIENT_ID",
+                redirect_uri: args.redirectUrl,
+                response_mode: ResponseMode.FORM_POST,
+                response_context: ResponseContext.RP,
+                state: args.stateId,
+                nonce: "NONCE"
+              },
+              presentationDefinitions: args.claims.presentationDefinitions,
+              verifyOpts: {
+                verification: {
+                  mode: VerificationMode.INTERNAL,
+                  resolveOpts: {}
+                }
+              }
+            },
+            verifiableCredentials: []
+          })
+        }
         if (args.customApproval !== undefined) {
           if (typeof args.customApproval === 'string') {
             if (args.customApprovals !== undefined && args.customApprovals[args.customApproval] !== undefined) {
