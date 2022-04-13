@@ -19,8 +19,8 @@ A Veramo connection manager plugin.
 - createConnection
 - updateConnection
 - deleteConnection
-- findById
-- findAll()
+- getConnection
+- getConnections
 
 ## Installation
 

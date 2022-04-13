@@ -9,8 +9,8 @@ constants:
     - createConnection
     - updateConnection
     - deleteConnection
-    - findById
-    - findAll
+    - getConnetion
+    - getConnetions
 server:
   baseUrl:
     $ref: /constants/baseUrl

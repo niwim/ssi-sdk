@@ -16,8 +16,8 @@ export class ConnectionManager implements IAgentPlugin {
     createConnection: this.createConnection.bind(this),
     updateConnection: this.updateConnection.bind(this),
     deleteConnection: this.deleteConnection.bind(this),
-    findById: this.findById.bind(this),
-    findAll: this.findAll.bind(this),
+    getConnection: this.getConnection.bind(this),
+    getConnections: this.getConnections.bind(this)
   }
 
 
@@ -45,17 +45,17 @@ export class ConnectionManager implements IAgentPlugin {
   });
   }
 
-  /** {@inheritDoc IConnectionManager.findById} */
-  private async findById(args: String): Promise<IResponse> {
-    console.log('findById');
+  /** {@inheritDoc IConnectionManager.getConnection} */
+  private async getConnection(args: String): Promise<IResponse> {
+    console.log('getConnection');
     return new Promise((resolve) => {
       resolve(new Response());
   });
   }
 
-  /** {@inheritDoc IConnectionManager.findAll} */
-  private async findAll(): Promise<IResponse> {
-    console.log('findAll');
+  /** {@inheritDoc IConnectionManager.getConnections} */
+  private async getConnections(): Promise<IResponse> {
+    console.log('getConnections');
     return new Promise((resolve) => {
       resolve(new Response());
   });
