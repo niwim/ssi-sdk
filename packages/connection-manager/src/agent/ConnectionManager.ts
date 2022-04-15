@@ -1,6 +1,7 @@
 import { IAgentPlugin } from '@veramo/core'
 import { AppDataSource } from '../data-source';
 import { ConnectionStore } from '../types/ConnectionStore';
+​import {Holder} from '../model/Holder'
 
 import { IConnectionManager } from '../types/IConnectionManager'
 
@@ -18,8 +19,8 @@ export class ConnectionManager implements IAgentPlugin {
 //    getConnections: this.getConnections.bind(this)
   }
 
-  private async createHolder(args: {name: string}): Promise<void>{
+  private createHolder(args: {name: string}): Promise<Holder> {
     const store = new ConnectionStore(AppDataSource);
-    await store.createHolder(args);
+    return store.createHolder(args);
   }
 }

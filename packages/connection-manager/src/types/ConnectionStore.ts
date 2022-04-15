@@ -16,13 +16,19 @@ export class ConnectionStore extends AbstractConnectionStore {
     name
   }: {
     name: string
-  }): Promise<void> {
-    console.log('createHolder');
-    const holderRepository = this.appDataSource.getRepository(Holder)
+  }): Promise<Holder> {
+    console.log('connection-store before inititalization');
     const holder = new Holder()
-    holder.name = "Timber"
-    holder.id=1
-    await holderRepository.save(holder)
-    console.log("Holder id is", holder.id)
+    this.appDataSource.initialize()
+    .then(() => {
+      console.log('this.appDataSource.initialize() successful')
+      const holderRepository = this.appDataSource.getRepository(Holder)
+      holder.name = "Timber"
+      holderRepository.save(holder)
+      console.log("Holder id is", holder.id)
+      })
+    .catch((error) => console.log(error))
+    console.log('after inititalization');
+    return holder;
   }
 }
