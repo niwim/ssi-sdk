@@ -1,64 +1,28 @@
-import { IAgentPlugin } from '@veramo/core'
+import { DataSource } from 'typeorm';
+​import {Holder} from '../model/Holder'
 
-import {
-  ICreateConnectionArgs,
-  IUpdateConnectionArgs,
-  IDeleteConnectionArgs,
-  IResponse,
-  IConnectionManager
-} from '../types/IConnectionManager'
+import { AbstractConnectionStore } from './AbstractConnectionStore'
+​
+export class ConnectionStore extends AbstractConnectionStore {
 
-/**
- * {@inheritDoc IConnectionManager}
- */
-export class ConnectionManager implements IAgentPlugin {
-  readonly methods: IConnectionManager = {
-    createConnection: this.createConnection.bind(this),
-    updateConnection: this.updateConnection.bind(this),
-    deleteConnection: this.deleteConnection.bind(this),
-    getConnection: this.getConnection.bind(this),
-    getConnections: this.getConnections.bind(this)
+  private appDataSource: DataSource;
+
+  constructor(dataSource: DataSource) {
+    super()
+    this.appDataSource = dataSource
   }
-
-
-  /** {@inheritDoc IConnectionManager.createConnection} */
-  private async createConnection(args: ICreateConnectionArgs): Promise<IResponse> {
-    console.log('createConnection');
-    return new Promise((resolve) => {
-      resolve(new Response());
-  });
+​
+  async createHolder({
+    name
+  }: {
+    name: string
+  }): Promise<void> {
+    console.log('createHolder');
+    const holderRepository = this.appDataSource.getRepository(Holder)
+    const holder = new Holder()
+    holder.name = "Timber"
+    holder.id=1
+    await holderRepository.save(holder)
+    console.log("Holder id is", holder.id)
   }
-
-  /** {@inheritDoc IConnectionManager.updateConnection} */
-  private async updateConnection(args: IUpdateConnectionArgs): Promise<IResponse> {
-    console.log('updateConnection');
-    return new Promise((resolve) => {
-      resolve(new Response());
-  });
-  }
-
-  /** {@inheritDoc IConnectionManager.deleteConnection} */
-  private async deleteConnection(args: IDeleteConnectionArgs): Promise<IResponse> {
-    console.log('deleteConnection');
-    return new Promise((resolve) => {
-      resolve(new Response());
-  });
-  }
-
-  /** {@inheritDoc IConnectionManager.getConnection} */
-  private async getConnection(args: String): Promise<IResponse> {
-    console.log('getConnection');
-    return new Promise((resolve) => {
-      resolve(new Response());
-  });
-  }
-
-  /** {@inheritDoc IConnectionManager.getConnections} */
-  private async getConnections(): Promise<IResponse> {
-    console.log('getConnections');
-    return new Promise((resolve) => {
-      resolve(new Response());
-  });
-  }
-
 }

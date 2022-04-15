@@ -13,15 +13,15 @@
     "build": "tsc --build"
   },
   "dependencies": {
-    "@sphereon/pex": "^1.0.2",
-    "@sphereon/ssi-sdk-core": "^0.5.0",
     "@veramo/core": "3.1.1-next.26",
     "@veramo/utils": "3.1.1-next.26",
-    "cross-fetch": "^3.1.5"
+    "cross-fetch": "^3.1.5",
+    "pg": "^8.7.3",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.0-rc.40"
   },
   "devDependencies": {
     "@veramo/cli": "3.1.1-next.26",
-    "nock": "^13.2.1",
     "typescript": "^4.5.2"
   },
   "files": [
