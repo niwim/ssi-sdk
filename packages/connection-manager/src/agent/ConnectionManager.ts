@@ -19,7 +19,7 @@ export class ConnectionManager implements IAgentPlugin {
 //    getConnections: this.getConnections.bind(this)
   }
 
-  private createHolder(args: {name: string}): Promise<Holder> {
+  public createHolder(args: {name: string}): Promise<Holder> {
     const store = new ConnectionStore(AppDataSource);
     return store.createHolder(args);
   }
