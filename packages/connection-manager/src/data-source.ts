@@ -11,7 +11,7 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     migrationsRun: true,
     logging: true,
-    entities: ['dist/model/Holder.js']
+    entities: ['dist/entities/*.js']
 })
 */
 export const AppDataSource = new DataSource({
@@ -20,5 +20,5 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     migrationsRun: true,
     logging: true,
-    entities: ['dist/model/Holder.js']
+    entities: ['dist/entities/*.js']
 })

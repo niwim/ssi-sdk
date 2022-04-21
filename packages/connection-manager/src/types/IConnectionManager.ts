@@ -1,6 +1,19 @@
 import {IPluginMethodMap} from '@veramo/core'
-​import {Holder} from '../model/Holder'
+​import {Holder} from '../entities/Holder'
+​import {Connection} from '../entities/Connection'
 
 export interface IConnectionManager extends IPluginMethodMap {
-  createHolder(args: {name: string}): Promise<Holder>;
+  createHolder(args: ICreateHolderArgs): Promise<Holder>;
+  addConnection(args: IAddConnectionArgs): Promise<Connection>;
+}
+
+export interface IAddConnectionArgs {
+  type: string
+  config: string
+  details: string
+  holderId: number
+}
+
+export interface ICreateHolderArgs {
+  name: string
 }

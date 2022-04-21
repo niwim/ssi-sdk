@@ -1,5 +1,8 @@
-​import {Holder} from '../model/Holder'
+​import {Holder} from '../entities/Holder'
+​import {Connection} from '../entities/Connection'
+import { IAddConnectionArgs, ICreateHolderArgs } from './IConnectionManager';
 
 export abstract class AbstractConnectionStore {
-  abstract createHolder(args: {name: string}): Promise<Holder> // TODO: We need an interface for the argument and we need to return 
+  abstract addConnection(args: IAddConnectionArgs): Promise<Connection>
+  abstract createHolder(args: ICreateHolderArgs): Promise<Holder>
 }

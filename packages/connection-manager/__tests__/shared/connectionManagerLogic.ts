@@ -19,7 +19,7 @@ export default (testContext: {
 
     afterAll(testContext.tearDown)
 
-    it('should create connection', async () => {
+    it('should create holder', async () => {
       let holder = await agent.createHolder({name: 'Mehmet'})
       expect(holder.name).toEqual('Mehmet')
     })
