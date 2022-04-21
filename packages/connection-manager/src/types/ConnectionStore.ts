@@ -22,7 +22,6 @@ export class ConnectionStore extends AbstractConnectionStore {
     .then(async () => {
       const holderRepository = this.appDataSource.getRepository(Holder)
       holder.name = name
-      this.appDataSource.manager.save(holder)
       await holderRepository.save(holder)
       })
     .catch((error) => console.log(error))
@@ -33,8 +32,8 @@ export class ConnectionStore extends AbstractConnectionStore {
     const connection = new Connection()
     this.appDataSource.initialize()
     .then(async () => {
-      const connectionRepository = this.appDataSource.getRepository(Connection)
       const holderRepository = this.appDataSource.getRepository(Holder)
+      const connectionRepository = this.appDataSource.getRepository(Connection)
       connection.config = args.config
       connection.createdDate = new Date()
       connection.details = args.details

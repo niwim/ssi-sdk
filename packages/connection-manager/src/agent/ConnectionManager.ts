@@ -26,11 +26,11 @@ export class ConnectionManager implements IAgentPlugin {
 //    getConnections: this.getConnections.bind(this)
   }
 
-  public createHolder(args: ICreateHolderArgs): Promise<Holder> {
+  private createHolder(args: ICreateHolderArgs): Promise<Holder> {
     return this.connectionStore.createHolder(args);
   }
 
-  public addConnection(args: IAddConnectionArgs): Promise<Connection> {
+  private addConnection(args: IAddConnectionArgs): Promise<Connection> {
     return this.connectionStore.addConnection(args);
   }
 
