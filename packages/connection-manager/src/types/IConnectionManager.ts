@@ -5,6 +5,7 @@ import {IPluginMethodMap} from '@veramo/core'
 export interface IConnectionManager extends IPluginMethodMap {
   createHolder(args: ICreateHolderArgs): Promise<Holder>;
   addConnection(args: IAddConnectionArgs): Promise<Connection>;
+  initDB(): Promise<void>
 }
 
 export interface IAddConnectionArgs {
