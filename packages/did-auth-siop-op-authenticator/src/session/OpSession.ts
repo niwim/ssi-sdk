@@ -216,6 +216,28 @@ export class OpSession {
     }
   }
 
+  private async getControllerDID(identifier: IIdentifier) {
+    const controlerKeyId = identifier.controllerKeyId
+    if (!controlerKeyId) {
+      return identifier.did
+    }
+    const didDocument = await this.context.agent.resolveDid({
+      didUrl: identifier.did,
+    })
+    if (!didDocument?.didDocument) {
+      throw Error('Cannot resolve DIDdocument')
+    }
+    const controllerDIDCompnent = await this.context.agent.getDIDComponentById({
+      didDocument: didDocument.didDocument,
+      didUrl: identifier.did,
+      section: 'verificationMethod',
+    })
+    if (!controllerDIDCompnent) {
+      throw Error('Cannot find controller DID')
+    }
+    return controllerDIDCompnent.id
+  }
+
   private async createOp(
     identifier: IIdentifier,
     verificationMethodSection: DIDDocumentSection | undefined,
@@ -231,12 +253,13 @@ export class OpSession {
     }
 
     const keyRef = await this.getKey(identifier, verificationMethodSection, context)
+    const controllerDID = await this.getControllerDID(identifier)
 
     const builder = OP.builder()
       .withExpiresIn(expiresIn)
 
       .addDidMethod(didMethod)
-      .suppliedSignature(SuppliedSigner(keyRef, context, this.getKeyAlgorithm(keyRef.type)), identifier.did, identifier.controllerKeyId)
+      .suppliedSignature(SuppliedSigner(keyRef, context, this.getKeyAlgorithm(keyRef.type)), identifier.did, controllerDID)
       .registrationBy(SIOP.PassBy.VALUE)
       .response(SIOP.ResponseMode.POST)
     if (supportedDidMethods && supportedDidMethods.length > 0) {
